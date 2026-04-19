@@ -45,6 +45,16 @@ https://changgely.github.io/quant-training-master-demo/
 
 https://changgely.github.io/quant-training-master-demo/src/web-demo/index.html#/
 
+## 客户端下载
+
+桌面客户端 Release 页面：
+
+https://github.com/CHANGGELY/quant-training-master-downloads/releases/tag/v1.0.0
+
+安装包直链：
+
+https://github.com/CHANGGELY/quant-training-master-downloads/releases/download/v1.0.0/QuantTrainingMaster-1.0.0.exe
+
 ## 说明
 
 本项目聚焦 A 股量化训练与产品演示，网页展示中的回测结果仅用于说明产品能力，不构成任何收益承诺。
