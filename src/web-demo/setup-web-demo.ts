@@ -61,6 +61,24 @@ const ensureStorageValue = <T>(key: string, fallback: T): T => {
 	return value
 }
 
+const DESKTOP_ONLY_DISMISSED_KEY = "web-demo.desktop-only.dismissed"
+
+const isDesktopOnlyDismissed = () => {
+	try {
+		return window.sessionStorage.getItem(DESKTOP_ONLY_DISMISSED_KEY) === "1"
+	} catch {
+		return false
+	}
+}
+
+const markDesktopOnlyDismissed = () => {
+	try {
+		window.sessionStorage.setItem(DESKTOP_ONLY_DISMISSED_KEY, "1")
+	} catch {
+		// ignore
+	}
+}
+
 let desktopOnlyDialogHost: HTMLDivElement | null = null
 
 const closeDesktopOnlyDialog = () => {
@@ -73,6 +91,7 @@ const openWebDemoUrl = (url: string) => {
 }
 
 const notifyDesktopOnly = (message = DESKTOP_ONLY_MESSAGE) => {
+	if (isDesktopOnlyDismissed()) return
 	closeDesktopOnlyDialog()
 
 	const host = document.createElement("div")
@@ -179,6 +198,7 @@ const notifyDesktopOnly = (message = DESKTOP_ONLY_MESSAGE) => {
 	closeButton.style.fontWeight = "600"
 	closeButton.style.cursor = "pointer"
 	closeButton.addEventListener("click", () => {
+		markDesktopOnlyDismissed()
 		closeDesktopOnlyDialog()
 	})
 
@@ -188,6 +208,7 @@ const notifyDesktopOnly = (message = DESKTOP_ONLY_MESSAGE) => {
 
 	host.addEventListener("click", (event) => {
 		if (event.target === host) {
+			markDesktopOnlyDismissed()
 			closeDesktopOnlyDialog()
 		}
 	})
@@ -196,6 +217,7 @@ const notifyDesktopOnly = (message = DESKTOP_ONLY_MESSAGE) => {
 		"keydown",
 		(event) => {
 			if (event.key === "Escape" && desktopOnlyDialogHost) {
+				markDesktopOnlyDismissed()
 				closeDesktopOnlyDialog()
 			}
 		},
